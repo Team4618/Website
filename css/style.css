@@ -1,99 +1,19 @@
 @font-face {
-   font-family: "nyamomobile";
+   font-family: "nyamomobile4618";
    src: url("/fonts/nyamomobile.ttf") format("truetype");
 }
 
 @font-face {
-   font-family: "opensans";
+   font-family: "opensans4618";
    src: url("/fonts/OpenSans-Regular.ttf") format("truetype");
 }
 
-.newman-robotics-navbar {
-   background-color: red;
+@font-face {
+   font-family: "opensansbold4618";
+   src: url("/fonts/OpenSans-Bold.ttf") format("truetype");
 }
 
-.north-navbar {
-   background-color: #353839;
+@font-face {
+   font-family: "sansserif4618";
+   src: url("/fonts/MS_Reference_Sans_Serif_regular.ttf") format("truetype");
 }
-
-body {
-   height: 100vh;
-   background-color: white;
-}
-
-.title-banner {
-   background-color: black;
-   text-align: center;
-   color: white;
-}
-
-.shadow-on-hover:hover {
-   box-shadow: 0px 0px 7px 3px rgba(0, 0, 0, 0.28);
-}
-
-.new-title-bar {
-   padding-top: 50px;
-   width: 95%;
-   text-align: center; 
-   border-bottom: 2px solid #000; 
-   line-height: 0.1em; 
-   margin: 10px 0 20px;
-}
-
-.new-title-bar span {
-   background: white;
-   padding: 0 40px;
-   font-size: 30px;
-   font-family: Verdana;
-   font-weight: bold;
-}
-
-/*------------------*/
-
-.ribbon {
-   font-size: 16px !important;
-   /* This ribbon is based on a 16px font side and a 24px vertical rhythm. I've used em's to position each element for scalability. If you want to use a different font size you may have to play with the position of the ribbon elements */
-  
-   width: 50%;
-      
-   position: relative;
-   background: #ba89b6;
-   color: #fff;
-   text-align: center;
-   padding: 1em 2em; /* Adjust to suit */
-   margin: 2em auto 3em; /* Based on 24px vertical rhythm. 48px bottom margin - normally 24 but the ribbon 'graphics' take up 24px themselves so we double it. */
-  }
-  .ribbon:before, .ribbon:after {
-   content: "";
-   position: absolute;
-   display: block;
-   bottom: -1em;
-   border: 1.5em solid #986794;
-   z-index: -1;
-  }
-  .ribbon:before {
-   left: -2em;
-   border-right-width: 1.5em;
-   border-left-color: transparent;
-  }
-  .ribbon:after {
-   right: -2em;
-   border-left-width: 1.5em;
-   border-right-color: transparent;
-  }
-  .ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
-   content: "";
-   position: absolute;
-   display: block;
-   border-style: solid;
-   border-color: #804f7c transparent transparent transparent;
-   bottom: -1em;
-  }
-  .ribbon .ribbon-content:before {
-   left: 0;
-   border-width: 1em 0 0 1em;
-  }
-  .ribbon .ribbon-content:after {
-   right: 0;
-   border-width: 1em 1em 0 0;
-  }

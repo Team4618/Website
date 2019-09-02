@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <title>Newman Robotics</title>
+      <link rel="stylesheet" href="/css/style.css">
+      <style>
+         /* Nav tabs stuff */
+         .nav_tab_div {
+            display: inline-block; 
+            height: 40px;
+            padding-left: 10px;
+            padding-right: 10px;
+            cursor: pointer;
+         }
+
+         .nav_tab_div:hover {
+            
+         }
+
+         .nav_tab_text {
+            position: relative;
+            top: 10px;
+            user-select: none;
+         }
+
+         .nav_tab_selected {
+            background-color: white;
+            color: black;
+         }
+
+         .nav_tab_not_selected {
+            background-color: black;
+            color: white;
+         }
+
+         /* content stuff */
+         .content_div {}
+
+         /* Robot selector stuff */
+         .robot_selector_tile_div {
+            margin: 5px;
+            display: inline-block;
+            height: 180px;
+            width: 180px;
+            background-color: black;
+            color: white;
+            cursor: pointer;
+         }
+
+         .robot_selector_tile_div:hover {
+            background-color: grey;
+         }
+      </style>
+      <script>
+         var url_params;
+
+         function parseURLParams() {
+            var raw_url_params = window.location.search.slice(1).split("&");
+            var result_url_params = {};
+            for (var i = 0; i < raw_url_params.length; i++) {
+               var split_param = raw_url_params[i].split("=");
+               if(split_param.length == 2) {
+                  result_url_params[split_param[0]] = split_param[1];
+               }
+            }
+
+            return result_url_params;
+         }
+
+         function updatePage() {
+            if(("tab" in url_params) && (document.getElementById(url_params["tab"]) != null)
+               && document.getElementById(url_params["tab"]).classList.contains("nav_tab_div"))
+            {
+               document.getElementById(url_params["tab"]).onclick();
+            } else {
+               document.getElementById("home_tab").onclick();
+            }
+         }
+
+         window.onload = function() {
+            url_params = parseURLParams();
+            updatePage();
+         }
+
+         window.addEventListener('popstate', function(e) {
+            url_params = parseURLParams();
+            updatePage();
+         });
+
+         /*
+         ISSUES:
+            Going to the previous page doesnt work (kinda works now, but still quite janky)
+               only goes back one tab, might be because we modify the history in "popstate"
+               seems to be fixed, this code needs major cleanup though
+
+               FOUND THE ISSUE: when we go back in the history we hit the page without any parameters
+               "unified_home.html" instead of "unified_home.html?tab=home_tab", so it adds the home tab to the stack.
+            
+               I think its fixed now, it uses replaceState if theres no "tab" param 
+
+            title stuff seems not to work properly
+         */       
+
+         function tabClicked(tab_id, content_id) {
+            var tabs = document.getElementsByClassName("nav_tab_div");
+            for (var i = 0; i < tabs.length; i++) {
+               tabs[i].classList.replace("nav_tab_selected", "nav_tab_not_selected");
+            }
+            
+            document.getElementById(tab_id).classList.replace("nav_tab_not_selected", "nav_tab_selected");
+
+            var pages = document.getElementsByClassName("content_div");
+            for (var i = 0; i < pages.length; i++) {
+               pages[i].hidden = true;
+            }
+
+            document.getElementById(content_id).hidden = false;
+
+            if(!("tab" in url_params)) {
+               //TODO: append the parameter here, we might have other parameters in future and dont want to overwrite them
+               console.log("replaceState " + tab_id + ", curr = " + url_params["tab"])
+               window.history.replaceState("", "", "unified_home.html?tab=" + tab_id);
+            } else if(url_params["tab"] != tab_id) {
+               //TODO: append the parameter here, we might have other parameters in future and dont want to overwrite them
+               console.log("pushState " + tab_id + ", curr = " + url_params["tab"])
+               window.history.pushState("", "", "unified_home.html?tab=" + tab_id);
+            }
+
+            document.title = "Newman Robotics - " + tab_id;
+            url_params["tab"] = tab_id;
+         }
+      </script>
+   </head>
+   <body style="background-color: red; margin: 0; height: 100%">
+      <div style="padding-left: 10%; padding-right: 10%; height: 100%;">
+         
+         <!-- Top graphic -->
+         <div style="margin: 10px; margin-bottom: -20px">
+            <img src="/assets/regular-gear.svg" width="100" class="d-inline-block align-top" alt="">
+            <!-- <div style="display: inline-block; font-family: nyamomobile4618; font-size: 50px; color: white; padding-left: 10px">
+               <p>newman</p>
+               <p>robotics</p>
+            </div> -->
+            <a style="font-family: nyamomobile4618; font-size: 100px; color: white; padding-left: 10px">Newman Robotics</a>
+         </div>
+         
+         <!-- Nav Bar -->
+         <div style="height: 40px; background-color: black; font-family: opensans4618; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+            <div id="home_tab" style="border-top-left-radius: 5px" class="nav_tab_div nav_tab_not_selected" onclick="tabClicked('home_tab', 'home_content')">
+               <a class="nav_tab_text">Home</a>
+            </div>
+
+            <div id="sponsors_tab" class="nav_tab_div nav_tab_not_selected" onclick="tabClicked('sponsors_tab', 'home_content')">
+               <a class="nav_tab_text">Sponsors</a>
+            </div>
+
+            <div id="blog_tab" class="nav_tab_div nav_tab_not_selected" onclick="tabClicked('blog_tab', 'blog_content')">
+               <a class="nav_tab_text">Blog/News?</a>
+            </div>
+            
+            <div id="robot_tab" class="nav_tab_div nav_tab_not_selected" onclick="tabClicked('robot_tab', 'robot_content')">
+               <a class="nav_tab_text">Robots</a>
+            </div>
+
+            <div id="gallery_tab" class="nav_tab_div nav_tab_not_selected" onclick="tabClicked('gallery_tab', 'gallery_content')">
+               <a class="nav_tab_text">Gallery</a>
+            </div>
+            
+            <div style="height: 40px; padding-left: 10px; padding-right: 40px; float: right;">
+               <a style="color: white; position: relative; top: 10px">Put social up here?</a>
+            </div>
+         </div>
+
+         <!-- TODO: move the different pages' content to iframes? -->
+
+         <!-- Home content -->
+         <div id="home_content" class="content_div" hidden>
+            <!-- News -->
+            <div style="height: 200px; background-color: white">
+               <p style="margin: 0px; font-family: opensans4618; text-align: center; font-size: 30px; padding: 10px">News?</p>
+            </div>
+
+            <!-- About us -->
+            <div style="height: 400px; background-color: white">
+               <p style="margin: 0px; font-family: opensans4618; text-align: center; font-size: 30px; padding: 10px">About Us</p>
+            </div>
+
+            <!-- Robot selector -->
+            <div style="background-color: white; text-align: center;">
+               <div class="robot_selector_tile_div">Skittles</div>
+               <div class="robot_selector_tile_div">Dusty</div>
+               <div class="robot_selector_tile_div">Rattles</div>
+               <div class="robot_selector_tile_div">Pablo</div>
+               <div class="robot_selector_tile_div">Vanadium</div>
+               <div class="robot_selector_tile_div">Felix</div>
+               <div class="robot_selector_tile_div">Deep Space</div>
+
+               <!-- <img src="http://dev.newmanrobotics.ca/wp-content/uploads/2017/02/IMG_0083.jpg", style="width: 400px">
+               <img src="http://dev.newmanrobotics.ca/wp-content/uploads/2017/02/IMG_0083.jpg", style="width: 400px">
+               <img src="http://dev.newmanrobotics.ca/wp-content/uploads/2017/02/IMG_0083.jpg", style="width: 400px"> -->
+            </div>
+
+            <!-- Sponsors -->
+            <div style="height: 400px; background-color: white">
+
+            </div>
+         </div>
+
+         <div id="blog_content" class="content_div" hidden>
+            <div style="height: 200px; background-color: white">
+               <p style="margin: 0px; font-family: opensans4618; text-align: center; font-size: 30px; padding: 10px">Blog?</p>
+            </div>
+
+         </div>
+
+         <div id="robot_content" class="content_div" hidden>
+            <div style="background-color: white">
+               <p style="margin: 0px; font-family: opensans4618; text-align: center; font-size: 30px; padding: 10px">Robots</p>
+
+               <div>
+                  <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Deep Space</p>
+                  
+                  <div style="display: inline-block; height: 200px; width: 100px; background-color: grey">
+                     <p>CAD?</p>
+                     <p>...</p>
+                  </div>
+
+                  <div style="display: inline-block; height: 200px; width: calc(100% - 100px - 50px); background-color: grey"></div>
+               </div>
+
+               <div>
+                  <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Felix</p>
+                  
+                  <div style="display: inline-block; height: 200px; width: 100px; background-color: grey"></div>
+                  <div style="display: inline-block; height: 200px; width: calc(100% - 100px - 50px); background-color: grey"></div>
+               </div>
+            </div>
+
+         </div>
+
+         <div id="gallery_content" class="content_div" hidden>
+            <div style="background-color: white;">
+               <p style="margin: 0px; font-family: opensans4618; text-align: center; font-size: 30px; padding: 10px">Gallery</p>
+
+               <!-- Scrolling highlight reel -->
+               <div style="text-align: center">
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;"></div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;"></div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;"></div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;"></div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;"></div>      
+               </div>
+
+               <div style="height: 40px"></div>
+
+               <div>
+                  <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">2019</p>
+                  <!-- <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px; margin-bottom: -15px;">2019</p> -->
+                  <!-- <div style="height: 8px; margin-left: 10px; margin-right: 10px; background-color: black;"></div> -->
+                  
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;">Event 1</div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;">Event 2</div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;">Event 3</div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;">Event 4</div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;">Event 5</div>
+                  
+                  <div style="height: 20px"></div>
+               </div>
+
+               <div>
+                  <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">2018</p>
+                  
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;">Event 1</div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;">Event 2</div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;">Event 3</div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;">Event 4</div>
+                  <div style="height: 100px; width: 100px; background-color: grey; margin: 10px; display: inline-block;">Event 5</div>
+               </div>
+
+            </div>
+         </div>
+
+         <!-- Footer -->
+         <div style="height: 80px; background-color: black; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px">
+
+         </div>
+
+         <div style="height: 20px"></div>
+      </div>
+   </body>
+</html>
