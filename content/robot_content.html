@@ -1,21 +1,45 @@
+<style>
+   .grid-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-template-areas: "Sidebar Main Main Main" "Sidebar Main Main Main" "Sidebar Main Main Main";
+   }
+
+   .Sidebar { grid-area: Sidebar; }
+   .Main { grid-area: Main; }
+</style>
+
 <div style="background-color: white">
    <p style="margin: 0px; font-family: opensans4618; text-align: center; font-size: 30px; padding: 10px">Robots</p>
 
-   <div>
+   <div id="robot1">
       <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Deep Space</p>
       
-      <div style="display: inline-block; height: 200px; width: 100px; background-color: grey">
-         <p>CAD?</p>
-         <p>...</p>
-      </div>
-
-      <div style="display: inline-block; height: 200px; width: calc(100% - 100px - 50px); background-color: grey"></div>
+      <div class="grid-container">
+         <div class="Sidebar" style="background-color: grey; margin-right: 2.5px; margin-left: 5px">
+            <div style="background-color: blue; width: 100%; height: 250px"></div>
+            <div style="background-color: purple; width: 100%; height: 100px"></div>
+         </div>
+         <div class="Main" style="background-color: grey; margin-left: 2.5px; margin-right: 5px"></div>
+       </div>
    </div>
 
-   <div>
+   <div id="robot2">
       <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Felix</p>
       
-      <div style="display: inline-block; height: 200px; width: 100px; background-color: grey"></div>
-      <div style="display: inline-block; height: 200px; width: calc(100% - 100px - 50px); background-color: grey"></div>
+      <div class="grid-container" style="height: 120px">
+         <div class="Sidebar" style="background-color: grey; margin-right: 2.5px; margin-left: 5px"></div>
+         <div class="Main" style="background-color: grey; margin-left: 2.5px"></div>
+       </div>
+   </div>
+
+   <div id="robot3">
+      <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Felix</p>
+      
+      <div class="grid-container" style="height: 120px">
+         <div class="Sidebar" style="background-color: grey; margin-right: 2.5px; margin-left: 5px"></div>
+         <div class="Main" style="background-color: grey; margin-left: 2.5px"></div>
+       </div>
    </div>
 </div>

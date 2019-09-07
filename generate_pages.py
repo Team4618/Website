@@ -22,7 +22,7 @@ def prettyIndentation(template, replace_text, raw_text):
 
 #HTML generation stuff
 def htmlNavBarTab(text, is_selected, style, link):
-   result =  '<div' + ((' style="' + style + '"') if len(style) > 0 else "") + ' class="nav_tab_div ' + ("nav_tab_selected" if is_selected else "nav_tab_not_selected") + '"' + ((" onclick=\"window.location.pathname='" + link + "'\"") if len(link) > 0 else "") + '>\n'
+   result =  '<div' + ((' style="' + style + '"') if len(style) > 0 else "") + ' class="nav_tab_div ' + ("nav_tab_selected" if is_selected else "nav_tab_not_selected") + '"' + ((" onclick=\"window.location.href='" + link + "'\"") if len(link) > 0 else "") + '>\n'
    result += '\t<a class="nav_tab_text">' + text + '</a>\n'
    result += '</div>\n'
    return result
@@ -42,10 +42,23 @@ def generatePage(template_html, title, nav_tabs_raw, content_raw):
 
 #Page specification stuff
 def makePage(title, content_path):
-   return {"title": title, "content_path": content_path}
+   return {"title": title, "content": readFile(content_path)}
+
+def makePage2(title, content):
+   return {"title": title, "content": content}
+
+#TODO: automatically generate gallery content
+# gallery_content = ???
 
 template_html = readFile("template.html")
-pages = [makePage("Home", "content/home_content.html"), makePage("Sponsors", "content/home_content.html"), makePage("Blog", "content/blog_content.html"), makePage("Robots", "content/robot_content.html"), makePage("Gallery", "content/gallery_content.html")]
+pages = [
+   makePage("Home", "content/home_content.html"), 
+   makePage("Sponsors", "content/home_content.html"), 
+   makePage("Blog", "content/blog_content.html"), 
+   makePage("Robots", "content/robot_content.html"), 
+   makePage("Gallery", "content/gallery_content.html")
+   # makePage2("Gallery", gallery_content)
+]
 
 for page in pages:
-   writeFile("generated/" + page["title"] + ".html", generatePage(template_html, "Newman Robotics - " + page["title"], htmlNavBar(pages, page["title"]), readFile(page["content_path"])))
+   writeFile("generated/" + page["title"] + ".html", generatePage(template_html, "Newman Robotics - " + page["title"], htmlNavBar(pages, page["title"]), page["content"]))

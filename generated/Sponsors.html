@@ -13,10 +13,6 @@
             cursor: pointer;
          }
 
-         .nav_tab_div:hover {
-            
-         }
-
          .nav_tab_text {
             position: relative;
             top: 10px;
@@ -48,19 +44,19 @@
          
          <!-- Nav Bar -->
          <div style="height: 40px; background-color: black; font-family: opensans4618; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-            <div style="border-top-left-radius: 5px" class="nav_tab_div nav_tab_not_selected" onclick="window.location.pathname='/generated/Home.html'">
+            <div style="border-top-left-radius: 5px" class="nav_tab_div nav_tab_not_selected" onclick="window.location.href='/generated/Home.html'">
             	<a class="nav_tab_text">Home</a>
             </div>
-            <div class="nav_tab_div nav_tab_selected" onclick="window.location.pathname='/generated/Sponsors.html'">
+            <div class="nav_tab_div nav_tab_selected" onclick="window.location.href='/generated/Sponsors.html'">
             	<a class="nav_tab_text">Sponsors</a>
             </div>
-            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.pathname='/generated/Blog.html'">
+            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.href='/generated/Blog.html'">
             	<a class="nav_tab_text">Blog</a>
             </div>
-            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.pathname='/generated/Robots.html'">
+            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.href='/generated/Robots.html'">
             	<a class="nav_tab_text">Robots</a>
             </div>
-            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.pathname='/generated/Gallery.html'">
+            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.href='/generated/Gallery.html'">
             	<a class="nav_tab_text">Gallery</a>
             </div>
             
@@ -100,13 +96,13 @@
          
          <!-- Robot selector -->
          <div style="background-color: white; text-align: center;">
-            <div class="robot_selector_tile_div">Skittles</div>
-            <div class="robot_selector_tile_div">Dusty</div>
-            <div class="robot_selector_tile_div">Rattles</div>
-            <div class="robot_selector_tile_div">Pablo</div>
-            <div class="robot_selector_tile_div">Vanadium</div>
-            <div class="robot_selector_tile_div">Felix</div>
-            <div class="robot_selector_tile_div">Deep Space</div>
+            <div class="robot_selector_tile_div" onclick="window.location.href='/generated/Robots.html#robot1'">Skittles</div>
+            <div class="robot_selector_tile_div" onclick="window.location.href='/generated/Robots.html#robot2'">Dusty</div>
+            <div class="robot_selector_tile_div" onclick="window.location.href='/generated/Robots.html#robot3'">Rattles</div>
+            <div class="robot_selector_tile_div" onclick="window.location.href='/generated/Robots.html#robot1'">Pablo</div>
+            <div class="robot_selector_tile_div" onclick="window.location.href='/generated/Robots.html#robot1'">Vanadium</div>
+            <div class="robot_selector_tile_div" onclick="window.location.href='/generated/Robots.html#robot1'">Felix</div>
+            <div class="robot_selector_tile_div" onclick="window.location.href='/generated/Robots.html#robot1'">Deep Space</div>
          
             <!-- <img src="http://dev.newmanrobotics.ca/wp-content/uploads/2017/02/IMG_0083.jpg", style="width: 400px">
             <img src="http://dev.newmanrobotics.ca/wp-content/uploads/2017/02/IMG_0083.jpg", style="width: 400px">
@@ -117,11 +113,13 @@
          <div style="height: 400px; background-color: white">
          
          </div>
+         
+         <!-- TODO: Put the laser cutting price stuff here? -->
          <!-- END content -->
 
          <!-- Footer -->
          <div style="height: 80px; background-color: black; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px">
-
+            
          </div>
 
          <div style="height: 20px"></div>

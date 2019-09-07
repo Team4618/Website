@@ -13,10 +13,6 @@
             cursor: pointer;
          }
 
-         .nav_tab_div:hover {
-            
-         }
-
          .nav_tab_text {
             position: relative;
             top: 10px;
@@ -48,19 +44,19 @@
          
          <!-- Nav Bar -->
          <div style="height: 40px; background-color: black; font-family: opensans4618; border-top-left-radius: 5px; border-top-right-radius: 5px;">
-            <div style="border-top-left-radius: 5px" class="nav_tab_div nav_tab_not_selected" onclick="window.location.pathname='/generated/Home.html'">
+            <div style="border-top-left-radius: 5px" class="nav_tab_div nav_tab_not_selected" onclick="window.location.href='/generated/Home.html'">
             	<a class="nav_tab_text">Home</a>
             </div>
-            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.pathname='/generated/Sponsors.html'">
+            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.href='/generated/Sponsors.html'">
             	<a class="nav_tab_text">Sponsors</a>
             </div>
-            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.pathname='/generated/Blog.html'">
+            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.href='/generated/Blog.html'">
             	<a class="nav_tab_text">Blog</a>
             </div>
-            <div class="nav_tab_div nav_tab_selected" onclick="window.location.pathname='/generated/Robots.html'">
+            <div class="nav_tab_div nav_tab_selected" onclick="window.location.href='/generated/Robots.html'">
             	<a class="nav_tab_text">Robots</a>
             </div>
-            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.pathname='/generated/Gallery.html'">
+            <div class="nav_tab_div nav_tab_not_selected" onclick="window.location.href='/generated/Gallery.html'">
             	<a class="nav_tab_text">Gallery</a>
             </div>
             
@@ -70,32 +66,56 @@
          </div>
 
          <!-- BEGIN content -->
+         <style>
+            .grid-container {
+               display: grid;
+               grid-template-columns: 1fr 1fr 1fr 1fr;
+               grid-template-rows: 1fr 1fr 1fr;
+               grid-template-areas: "Sidebar Main Main Main" "Sidebar Main Main Main" "Sidebar Main Main Main";
+            }
+         
+            .Sidebar { grid-area: Sidebar; }
+            .Main { grid-area: Main; }
+         </style>
+         
          <div style="background-color: white">
             <p style="margin: 0px; font-family: opensans4618; text-align: center; font-size: 30px; padding: 10px">Robots</p>
          
-            <div>
+            <div id="robot1">
                <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Deep Space</p>
                
-               <div style="display: inline-block; height: 200px; width: 100px; background-color: grey">
-                  <p>CAD?</p>
-                  <p>...</p>
-               </div>
-         
-               <div style="display: inline-block; height: 200px; width: calc(100% - 100px - 50px); background-color: grey"></div>
+               <div class="grid-container">
+                  <div class="Sidebar" style="background-color: grey; margin-right: 2.5px; margin-left: 5px">
+                     <div style="background-color: blue; width: 100%; height: 250px"></div>
+                     <div style="background-color: purple; width: 100%; height: 100px"></div>
+                  </div>
+                  <div class="Main" style="background-color: grey; margin-left: 2.5px; margin-right: 5px"></div>
+                </div>
             </div>
          
-            <div>
+            <div id="robot2">
                <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Felix</p>
                
-               <div style="display: inline-block; height: 200px; width: 100px; background-color: grey"></div>
-               <div style="display: inline-block; height: 200px; width: calc(100% - 100px - 50px); background-color: grey"></div>
+               <div class="grid-container" style="height: 120px">
+                  <div class="Sidebar" style="background-color: grey; margin-right: 2.5px; margin-left: 5px"></div>
+                  <div class="Main" style="background-color: grey; margin-left: 2.5px"></div>
+                </div>
+            </div>
+         
+            <div id="robot3">
+               <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Felix</p>
+               
+               <div class="grid-container" style="height: 120px">
+                  <div class="Sidebar" style="background-color: grey; margin-right: 2.5px; margin-left: 5px"></div>
+                  <div class="Main" style="background-color: grey; margin-left: 2.5px"></div>
+                </div>
             </div>
          </div>
          <!-- END content -->
 
          <!-- Footer -->
          <div style="height: 80px; background-color: black; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px">
-
+            
          </div>
 
          <div style="height: 20px"></div>

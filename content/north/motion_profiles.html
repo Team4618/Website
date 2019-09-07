@@ -1,0 +1,36 @@
+<script>
+   function makePart(d_i, v_i, a_i, j, start_time, end_time) {
+      return { "d_i": d_i, "v_i": v_i, "a_i": a_i, "j": j, "start_time": start_time, "end_time": end_time }
+   }
+
+   function getPartAt(part, t_raw) {
+      var t = t_raw - part.start_time
+
+      var a =                         part.a_i           + part.j*t
+      var v =            part.v_i   + part.a_i*t         + (1/2)*part.j*t*t
+      var d = part.d_i + part.v_i*t + (1/2)*part.a_i*t*t + (1/6)*part.j*t*t*t
+      return { "d": d, "v": v, "a": a }
+   }
+
+   function getValuesAt(profile, t) {
+      for(var i = 0; i < profile.length; i++) {
+         var part = profile[i]
+
+         if((part.start_time <= t) && (t <= part.end_time)) {
+            return getPartAt(part, t);
+         }
+      }
+   }
+
+   //TODO
+   function trapezoidalVelocityProfile(/*???*/) {
+      var result = []
+      result.push(makePart(0, 0, 0, 0, 0, 0))
+      result.push(makePart(0, 0, 0, 0, 0, 0))
+      return result
+   }
+</script>
+
+<p>Trapezoidal Velocity Profile</p>
+
+<p>Trapezoidal Acceleration Profile (S-Curve Profile)</p>
