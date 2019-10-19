@@ -1,3 +1,6 @@
+import os
+import time
+
 #Utils
 def readFile(path):
    f = open(path, "r")
@@ -40,25 +43,55 @@ def generatePage(template_html, title, nav_tabs_raw, content_raw):
 
    return template_html.replace("<!-- REPLACE WITH TITLE -->", "<title>" + title + "</title>").replace("<!-- REPLACE WITH NAV TABS -->", nav_tabs).replace("<!-- REPLACE WITH CONTENT -->", content)
 
-#Page specification stuff
-def makePage(title, content_path):
-   return {"title": title, "content": readFile(content_path)}
+#Page specification & generation
+def makePage(title, content):
+   if isinstance(content, str):
+      return {"title": title, "content": (lambda: readFile(content)), "path": content}
+   else:
+      assert callable(content)
+      return {"title": title, "content": content}
 
-def makePage2(title, content):
-   return {"title": title, "content": content}
+def generate(get_template_html, pages):
+   template_html = get_template_html()
+   for page in pages:
+      writeFile("generated/" + page["title"] + ".html", generatePage(template_html, "Newman Robotics - " + page["title"], htmlNavBar(pages, page["title"]), page["content"]() ))
 
-#TODO: automatically generate gallery content
-# gallery_content = ???
+#live regen stuff
+def getWatchFiles(pages):
+   watch_files = []
+   for page in pages:
+      if "path" in page:
+         path = page["path"]
+         watch_files.append({"path": path, "timestamp": os.stat(path).st_mtime})
+   return watch_files
 
-template_html = readFile("template.html")
+def checkFiles(watch_files):
+   result = False
+   for f in watch_files:
+      timestamp = os.stat(f["path"]).st_mtime
+      if timestamp != f["timestamp"]:
+         result = True
+         f["timestamp"] = timestamp
+   return result
+
+#--------------------------
+template_html = lambda: readFile("template.html")
 pages = [
    makePage("Home", "content/home_content.html"), 
-   makePage("Sponsors", "content/home_content.html"), 
+   makePage("Sponsors", "content/sponsors_content.html"), 
    makePage("Blog", "content/blog_content.html"), 
    makePage("Robots", "content/robot_content.html"), 
    makePage("Gallery", "content/gallery_content.html")
-   # makePage2("Gallery", gallery_content)
+   # makePage("Gallery", lambda: generateGallery()) #TODO: automatically generate gallery content
 ]
 
-for page in pages:
-   writeFile("generated/" + page["title"] + ".html", generatePage(template_html, "Newman Robotics - " + page["title"], htmlNavBar(pages, page["title"]), page["content"]))
+watch_files = getWatchFiles(pages)
+
+gen_count = 0
+generate(template_html, pages)
+while True:
+   if checkFiles(watch_files):
+      gen_count += 1
+      print("Generating " + str(gen_count))
+      generate(template_html, pages)
+   time.sleep(0.5)

@@ -9,7 +9,7 @@
       var a =                         part.a_i           + part.j*t
       var v =            part.v_i   + part.a_i*t         + (1/2)*part.j*t*t
       var d = part.d_i + part.v_i*t + (1/2)*part.a_i*t*t + (1/6)*part.j*t*t*t
-      return { "d": d, "v": v, "a": a }
+      return { "d": d, "v": v, "a": a, "j": part.j }
    }
 
    function getValuesAt(profile, t) {
@@ -22,15 +22,190 @@
       }
    }
 
-   //TODO
-   function trapezoidalVelocityProfile(/*???*/) {
-      var result = []
-      result.push(makePart(0, 0, 0, 0, 0, 0))
-      result.push(makePart(0, 0, 0, 0, 0, 0))
+   function trapezoidalVelocityProfile(d, v_i, a_max, v_max) {
+      var sign = Math.sign(d)
+      d = Math.abs(d)
+      v_i *= sign
+      
+      if((v_max - v_i) < 0) {
+         var t_accel = (v_max - v_i) / -a_max //changed
+         var d_accel = (v_max*v_max - v_i*v_i) / (2*-a_max) //changed
+         var t_deccel = v_max / a_max
+         var d_deccel = (v_max*v_max) / (2*a_max)
+
+         if(d > (d_accel + d_deccel)) {
+            var t_coast = (d - d_accel - d_deccel) / v_max
+            var d_coast = v_max * t_coast
+
+            return [
+               makePart(0,                          sign * v_i,   sign * -a_max, 0, 0,                 t_accel), //changed
+               makePart(sign * d_accel,             sign * v_max, 0,             0, t_accel,           t_accel + t_coast),
+               makePart(sign * (d_accel + d_coast), sign * v_max, sign * -a_max, 0, t_accel + t_coast, t_accel + t_coast + t_deccel)
+            ]
+         } else {
+            //TODO: fix this case: the v_max calculation is wrong & theres a min distance we need to deccel from v_i to 0
+            var min_deccel = (v_i*v_i) / (2*a_max) //is this always greater than d if we got to this case?
+            console.log(min_deccel)
+
+            v_max = Math.sqrt((2*a_max*d + v_i*v_i) / 2) // i think this is wrong
+
+            t_accel = (v_max - v_i) / -a_max //changed
+            d_accel = (v_max*v_max - v_i*v_i) / (2*-a_max) //changed
+            t_deccel = v_max / a_max
+            d_deccel = (v_max*v_max) / (2*a_max)
+
+            return [
+               makePart(0,              sign * v_i,   sign * -a_max, 0, 0,       t_accel), //changed
+               makePart(sign * d_accel, sign * v_max, sign * -a_max, 0, t_accel, t_accel + t_deccel)
+            ]
+         }
+      } else {
+         var t_accel = (v_max - v_i) / a_max
+         var d_accel = (v_max*v_max - v_i*v_i) / (2*a_max)
+         var t_deccel = v_max / a_max
+         var d_deccel = (v_max*v_max) / (2*a_max)
+
+         if(d > (d_accel + d_deccel)) {
+            var t_coast = (d - d_accel - d_deccel) / v_max
+            var d_coast = v_max * t_coast
+
+            return [
+               makePart(0,                          sign * v_i,   sign * a_max,  0, 0,                 t_accel),
+               makePart(sign * d_accel,             sign * v_max, 0,             0, t_accel,           t_accel + t_coast),
+               makePart(sign * (d_accel + d_coast), sign * v_max, sign * -a_max, 0, t_accel + t_coast, t_accel + t_coast + t_deccel)
+            ]
+         } else {
+            v_max = Math.sqrt((2*a_max*d + v_i*v_i) / 2)
+
+            t_accel = (v_max - v_i) / a_max
+            d_accel = (v_max*v_max - v_i*v_i) / (2*a_max)
+            t_deccel = v_max / a_max
+            d_deccel = (v_max*v_max) / (2*a_max)
+
+            return [
+               makePart(0,              sign * v_i,   sign * a_max,  0, 0,       t_accel),
+               makePart(sign * d_accel, sign * v_max, sign * -a_max, 0, t_accel, t_accel + t_deccel)
+            ]
+         }
+      }
+   }
+
+   function s_curve(d, v_i, a_max, v_max) {
+      var t_accel = (2*v_max - 2*v_i) / a_max
+      var j_accel = (a_max*a_max) / (v_max - v_i)
+      var d_accel = 2*v_i*((v_max - v_i) / a_max) + ((v_max - v_i)*(v_max - v_i) / a_max)
+      
+      var t_deccel = (2*v_max) / a_max
+      var j_deccel = (a_max*a_max) / v_max
+      var d_deccel = (v_max*v_max) / a_max
+      
+      var t_coast = (d - d_accel - d_deccel) / v_max
+      var d_coast = v_max * t_coast
+
+      // return [
+      //    makePart(0,                 v_i,   a_max,  0, 0,                 t_accel),
+      //    makePart(d_,                 v_i,   a_max,  0, 0,                 t_accel),
+         
+      //    makePart(0,                 v_i,   a_max,  0, 0,                 t_accel),
+         
+      //    makePart(d_accel,           v_max, 0,      0, t_accel,           t_accel + t_coast),
+      //    makePart(d_accel + d_coast, v_max, -a_max, 0, t_accel + t_coast, t_accel + t_coast + t_deccel)
+      // ]
+   }
+
+   function drawProfile(ctx, profile) {
+      ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
+
+      var points = []
+      for(var part_i = 0; part_i < profile.length; part_i++) {
+         var part = profile[part_i]
+         
+         var N = 10
+         var step = (part.end_time - part.start_time) / (N - 1)
+         for(var i = 0; i < N; i++) {
+            var t = part.start_time + step * i
+            points.push({ "t": t, "vals": getPartAt(part, t) })
+         }
+      }
+
+      var x_scale = 600 / profile[profile.length - 1].end_time
+      var y_scale = 10
+
+      ctx.strokeStyle = '#FF0000'
+      ctx.beginPath();
+      for(var point_i = 0; point_i < points.length; point_i++) {
+         var point = points[point_i]
+         var x = point.t * x_scale;
+         var y = y_scale * point.vals.d + 150;
+         if(point_i == 0) { ctx.moveTo(x, y) } else { ctx.lineTo(x, y) }
+      }
+      ctx.stroke();
+
+      ctx.strokeStyle = '#00FF00'
+      ctx.beginPath();
+      for(var point_i = 0; point_i < points.length; point_i++) {
+         var point = points[point_i]
+         var x = point.t * x_scale;
+         var y = y_scale * point.vals.v + 150;
+         if(point_i == 0) { ctx.moveTo(x, y) } else { ctx.lineTo(x, y) }   
+      }
+      ctx.stroke();
+
+      ctx.strokeStyle = '#0000FF'
+      ctx.beginPath();
+      for(var point_i = 0; point_i < points.length; point_i++) {
+         var point = points[point_i]
+         var x = point.t * x_scale;
+         var y = y_scale * point.vals.a + 150;
+         if(point_i == 0) { ctx.moveTo(x, y) } else { ctx.lineTo(x, y) }   
+      }
+      ctx.stroke();
+
+      ctx.strokeStyle = '#FF00FF'
+      ctx.beginPath();
+      for(var point_i = 0; point_i < points.length; point_i++) {
+         var point = points[point_i]
+         var x = point.t * x_scale;
+         var y = y_scale * point.vals.j + 150;
+         if(point_i == 0) { ctx.moveTo(x, y) } else { ctx.lineTo(x, y) }   
+      }
+      ctx.stroke();
+   }
+
+   function profileToString(profile) {
+      result = ""
+      for(var part_i = 0; part_i < profile.length; part_i++) {
+         var part = profile[part_i]
+         
+         result += "f_" + part_i + "(t)=" + part.d_i + " + " + part.v_i + "*t + 1/2*" + part.a_i + "*t^2 + 1/6*" + part.j + "*t^3 (" + part.start_time + " <= t <= " + part.end_time + ")\r\n" 
+      }
       return result
    }
+
+   function updateGraph() {
+      var ctx = document.getElementById("trapezoidal_graph").getContext("2d") 
+      var profile = trapezoidalVelocityProfile(parseFloat(document.getElementById("d_input").value),
+                                               parseFloat(document.getElementById("v_i_input").value),
+                                               parseFloat(document.getElementById("a_max_input").value),
+                                               parseFloat(document.getElementById("v_max_input").value))
+      document.getElementById("trapezoidal_functions").textContent = profileToString(profile)
+      drawProfile(ctx, profile)
+
+      console.log(getValuesAt(profile, profile[profile.length - 1].end_time))
+   }
+
+   window.onload = updateGraph
 </script>
 
 <p>Trapezoidal Velocity Profile</p>
+<canvas id="trapezoidal_graph" width="600" height="300" style="border: solid black"></canvas>
+<br>
+<p style="white-space: pre" id="trapezoidal_functions"></p>
+<br>
+<a>Distance</a> <input type="number" id="d_input" value="10"/> <br>
+<a>Initial Velocity</a> <input type="number" id="v_i_input" value="1"/> <br>
+<a>Max Acceleration</a> <input type="number" id="a_max_input" value="1"/> <br>
+<a>Max Velocity</a> <input type="number" id="v_max_input" value="1"/> <br>
+<button onclick="updateGraph()">Update</button>
 
 <p>Trapezoidal Acceleration Profile (S-Curve Profile)</p>

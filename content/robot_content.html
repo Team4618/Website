@@ -2,44 +2,206 @@
    .grid-container {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
-      grid-template-rows: 1fr 1fr 1fr;
-      grid-template-areas: "Sidebar Main Main Main" "Sidebar Main Main Main" "Sidebar Main Main Main";
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: "Sidebar GameLogo GameDesc GameDesc" "Sidebar RBottom RBottom RBottom";
    }
 
    .Sidebar { grid-area: Sidebar; }
-   .Main { grid-area: Main; }
+   
+   .GameLogo {
+      grid-area: GameLogo;
+      padding-left: 20px;
+   }
+
+   .GameDesc {
+      grid-area: GameDesc;
+      /* padding-left: 20px; */
+   }
+
+   .RBottom {
+      grid-area: RBottom;
+      padding-left: 20px;
+   }
+
+
 </style>
 
 <div style="background-color: white">
    <p style="margin: 0px; font-family: opensans4618; text-align: center; font-size: 30px; padding: 10px">Robots</p>
 
-   <div id="robot1">
-      <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Deep Space</p>
+   <div id="robot2019">
+      <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Deep Space - Galileo</p>
       
       <div class="grid-container">
-         <div class="Sidebar" style="background-color: grey; margin-right: 2.5px; margin-left: 5px">
-            <div style="background-color: blue; width: 100%; height: 250px"></div>
-            <div style="background-color: purple; width: 100%; height: 100px"></div>
+         <div class="Sidebar" style="margin-right: 2.5px; margin-left: 5px; background-color: blue">
+            <img src="/assets/robots/felix.png" style="width: 100%"/>
          </div>
-         <div class="Main" style="background-color: grey; margin-left: 2.5px; margin-right: 5px"></div>
-       </div>
+         <div class="GameLogo" style="margin-left: 2.5px; margin-right: 5px">
+            <img src="/assets/game_logos/2019.png" style="height: 200px"/>
+         </div>
+         <div class="GameDesc">
+            <p style="vertical-align: top; font-family: opensans4618"><i>Destination: Deep Space</i> is the game for the 2019 FIRST Robotics Competition. The game involves two alliances of three teams each competing to place hatch covers and rubber balls or "cargo" on rockets and cargo ships before returning to their hab platform to climb at the end of the match. More information can be found on <a href="https://en.wikipedia.org/wiki/Destination:_Deep_Space">Wikipedia</a>. </p>
+         </div>
+         <div class="RBottom" style="background-color: #606060; margin-left: 2.5px; margin-right: 5px">
+            <p style="font-family: opensans4618">Robot Abilities</p>
+            <ul>
+               <li>test1</li>
+               <li>test2</li>
+               <li>test3</li>
+               <li>test4</li>
+            </ul>
+         </div>
+      </div>
    </div>
 
-   <div id="robot2">
-      <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Felix</p>
+   <div id="robot2018">
+      <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Power Up - Felix</p>
       
-      <div class="grid-container" style="height: 120px">
-         <div class="Sidebar" style="background-color: grey; margin-right: 2.5px; margin-left: 5px"></div>
-         <div class="Main" style="background-color: grey; margin-left: 2.5px"></div>
-       </div>
+      <div class="grid-container">
+         <div class="Sidebar" style="margin-right: 2.5px; margin-left: 5px; background-color: blue">
+            <img src="/assets/robots/felix.png" style="width: 100%"/>
+         </div>
+         <div class="GameLogo" style="margin-left: 2.5px; margin-right: 5px">
+            <img src="/assets/game_logos/2018.png" style="height: 200px"/>
+         </div>
+         <div class="GameDesc">
+            <p style="vertical-align: top; font-family: opensans4618"><i>FIRST Power Up</i> is the game for the 2018 FIRST Robotics Competition. The game is played by two alliances of three teams each. Their robots compete on a field by placing milk crates which represent power cubes on large balancing scales in order to tip the scales and gain ownership. Alliances can also trade power cubes in for temporary advantages called power ups. At the end of the match, robots can climb or assist a partner in climbing the tower attached to the balancing scale, located on the center of the field, using a rung attached to the tower for additional points.</p>
+         </div>
+         <div class="RBottom" style="background-color: #606060; margin-left: 2.5px; margin-right: 5px">
+            <p style="font-family: opensans4618">Robot Abilities</p>
+            <ul>
+               <li>test1</li>
+               <li>test2</li>
+               <li>test3</li>
+               <li>test4</li>
+            </ul>
+         </div>
+      </div>
    </div>
 
-   <div id="robot3">
-      <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Felix</p>
+   <div id="robot2017">
+      <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Steamworks - Vanadium</p>
       
-      <div class="grid-container" style="height: 120px">
-         <div class="Sidebar" style="background-color: grey; margin-right: 2.5px; margin-left: 5px"></div>
-         <div class="Main" style="background-color: grey; margin-left: 2.5px"></div>
-       </div>
+      <div class="grid-container">
+         <div class="Sidebar" style="margin-right: 2.5px; margin-left: 5px; background-color: blue">
+            <img src="/assets/robots/felix.png" style="width: 100%"/>
+         </div>
+         <div class="GameLogo" style="margin-left: 2.5px; margin-right: 5px">
+            <img src="/assets/game_logos/2017.png" style="height: 200px"/>
+         </div>
+         <div class="GameDesc">
+            <p style="vertical-align: top; font-family: opensans4618"><i>FIRST Steamworks</i> is the game for the 2017 FIRST Robotics Competition. The game is played by two alliances of three teams each. Their robots compete on a field by scoring wiffleballs which represent fuel into a simulated boiler which transfers the generated steam into an airship in the middle of the field. Each alliance has one airship, which they pressurize with steam from the boiler and load with plastic gears from the field. At the end of the match, robots can hang on team-supplied ropes attached to the airship for additional points.</p>
+         </div>
+         <div class="RBottom" style="background-color: #606060; margin-left: 2.5px; margin-right: 5px">
+            <p style="font-family: opensans4618">Robot Abilities</p>
+            <ul>
+               <li>test1</li>
+               <li>test2</li>
+               <li>test3</li>
+               <li>test4</li>
+            </ul>
+         </div>
+      </div>
    </div>
+
+   <div id="robot2016">
+      <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Stronghold - Pablo</p>
+      
+      <div class="grid-container">
+         <div class="Sidebar" style="margin-right: 2.5px; margin-left: 5px; background-color: blue">
+            <img src="/assets/robots/pablo.png" style="width: 100%"/>
+         </div>
+         <div class="GameLogo" style="margin-left: 2.5px; margin-right: 5px">
+            <img src="/assets/game_logos/2016.png" style="height: 200px"/>
+         </div>
+         <div class="GameDesc">
+            <p style="vertical-align: top; font-family: opensans4618"><i>FIRST Stronghold</i> is the game for the 2016 FIRST Robotics Competition. The game is played by two alliances of three teams each, and involves breaching the opponents’ defenses, known as outer works, and capturing their tower by first firing "boulders" (small foam balls) at it and then surrounding or scaling the tower using rungs. </p>
+         </div>
+         <div class="RBottom" style="background-color: #606060; margin-left: 2.5px; margin-right: 5px">
+            <p style="font-family: opensans4618">Robot Abilities</p>
+            <ul>
+               <li>test1</li>
+               <li>test2</li>
+               <li>test3</li>
+               <li>test4</li>
+            </ul>
+         </div>
+      </div>
+   </div>
+
+   <div id="robot2015">
+      <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Recycle Rush - Rattles</p>
+      
+      <div class="grid-container">
+         <div class="Sidebar" style="margin-right: 2.5px; margin-left: 5px; background-color: blue">
+            <img src="/assets/robots/rattles.png" style="width: 100%"/>
+         </div>
+         <div class="GameLogo" style="margin-left: 2.5px; margin-right: 5px">
+            <img src="/assets/game_logos/2015.png" style="height: 200px"/>
+         </div>
+         <div class="GameDesc">
+            <p style="vertical-align: top; font-family: opensans4618"><i>Recycle Rush</i> is the 2015 FIRST Robotics Competition game. It involves picking up and stacking totes on scoring platforms, putting pool noodles ("litter") inside recycling containers, and putting the containers on top of scoring stacks of totes. There is also a coopertition aspect of the game where both alliances of teams can pool their totes and stack them on a step dividing the field to each gain twenty points. Along with these robot actions, human players can attempt to throw the pool noodles across the field to gain four points for each noodle left in the opposing alliance’s work zone. </p>
+         </div>
+         <div class="RBottom" style="background-color: #606060; margin-left: 2.5px; margin-right: 5px">
+            <p style="font-family: opensans4618">Robot Abilities</p>
+            <ul>
+               <li>test1</li>
+               <li>test2</li>
+               <li>test3</li>
+               <li>test4</li>
+            </ul>
+         </div>
+      </div>
+   </div>
+
+   <div id="robot2014">
+      <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Aerial Assist - Dusty</p>
+      
+      <div class="grid-container">
+         <div class="Sidebar" style="margin-right: 2.5px; margin-left: 5px; background-color: blue">
+            <img src="/assets/robots/felix.png" style="width: 100%"/>
+         </div>
+         <div class="GameLogo" style="margin-left: 2.5px; margin-right: 5px">
+            <img src="/assets/game_logos/2014.png" style="height: 200px"/>
+         </div>
+         <div class="GameDesc">
+            <p style="vertical-align: top; font-family: opensans4618"><i>Aerial Assist</i> is the 2014 FIRST Robotics Competition game. Teams of three robots play by passing large 20" diameter exercise balls between each other and eventually scoring them in goals at the end of the field. Robots can pass the balls over a truss that spans the field for extra points. </p>
+         </div>
+         <div class="RBottom" style="background-color: #606060; margin-left: 2.5px; margin-right: 5px">
+            <p style="font-family: opensans4618">Robot Abilities</p>
+            <ul>
+               <li>test1</li>
+               <li>test2</li>
+               <li>test3</li>
+               <li>test4</li>
+            </ul>
+         </div>
+      </div>
+   </div>
+
+   <div id="robot2013">
+      <p style="margin: 0px; font-family: opensans4618; text-align: left; font-size: 30px; padding: 10px">Ultimate Ascent - Skittles</p>
+      
+      <div class="grid-container">
+         <div class="Sidebar" style="margin-right: 2.5px; margin-left: 5px; background-color: blue">
+            <img src="/assets/robots/felix.png" style="width: 100%"/>
+         </div>
+         <div class="GameLogo" style="margin-left: 2.5px; margin-right: 5px">
+            <img src="/assets/game_logos/2013.png" style="height: 200px"/>
+         </div>
+         <div class="GameDesc">
+            <p style="vertical-align: top; font-family: opensans4618"><i>Ultimate Ascent</i> is the 2013 FIRST Robotics Competition game. Teams of three robots each collect Frisbees and shoot them into goals of varying heights. There is also a pyramid which can be climbed at the end of the match for bonus points.  </p>
+         </div>
+         <div class="RBottom" style="background-color: #606060; margin-left: 2.5px; margin-right: 5px">
+            <p style="font-family: opensans4618">Robot Abilities</p>
+            <ul>
+               <li>test1</li>
+               <li>test2</li>
+               <li>test3</li>
+               <li>test4</li>
+            </ul>
+         </div>
+      </div>
+   </div>
+
 </div>
